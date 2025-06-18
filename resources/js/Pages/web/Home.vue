@@ -6,14 +6,15 @@ import HeroSection from '@/Components/HeroSection.vue';
 </script>
 
 <template>
-  <MainLayout>
-    <Head title="Home" />
+    <MainLayout>
+        <Head title="Home" />
 
 
-    <div>
-     <HeroSection />
+        <div>
 
+            <HeroSection />
 
-    </div>
-  </MainLayout>
+        </div>
+
+    </MainLayout>
 </template>

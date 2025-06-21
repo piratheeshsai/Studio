@@ -6,11 +6,11 @@
     <!-- Navigation -->
     <div class="bg-secondary bg-opacity-10 border-bottom border-secondary py-3">
       <div class="container-xl">
-        <ul class="nav nav-pills gap-2">
+        <ul class="nav nav-pills gap-2 justify-content-center">
           <li class="nav-item" v-for="tab in tabs" :key="tab.id">
             <button
               class="nav-link d-flex align-items-center gap-2"
-              :class="activeTab === tab.id ? 'active bg-warning text-dark' : 'text-secondary'"
+              :class="activeTab === tab.id ? 'nav-gradient-active text-white' : 'text-secondary'"
               @click="activeTab = tab.id"
             >
               <i :class="tab.icon"></i>
@@ -24,13 +24,13 @@
     <!-- Main Content -->
     <div class="container-xl py-4">
       <!-- Overview Tab -->
-      <OverviewTab
-        v-if="activeTab === 'overview'"
-        :stat-cards="statCards"
-        :recent-shoots="recentShoots"
-        :get-status-text="getStatusText"
-        @trigger-file-input="triggerFileInput"
-      />
+     <OverviewTab
+  v-if="activeTab === 'overview'"
+  :stat-cards="statCards"
+  :recent-shoots="recentShoots"
+  :get-status-text="getStatusText"
+  :stats="stats"
+/>
 
       <!-- Shoots Tab -->
       <ShootsTab
@@ -172,11 +172,18 @@ const websiteSettings = ref({
 </script>
 
 <style scoped>
+.bg-orange {
+  background: #ff6b35 !important;
+  color: #fff !important;
+}
+
+.nav-gradient-active {
+  background: linear-gradient(90deg, #ff6b35 60%, #f7931e 100%) !important;
+  color: #fff !important;
+  border: none;
+  box-shadow: 0 2px 8px rgba(255, 107, 53, 0.08);
+}
 /* Your CSS here */
 </style>
 
-<!-- Add this to your main layout or index.html -->
-<!--
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
--->
+

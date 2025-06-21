@@ -16,10 +16,11 @@ use Inertia\Inertia;
 
 Route::get('/', function () {
     return Inertia::render('web/Home'); // Points to Web/Home.vue
-});
+})->name('home');
+
 
 Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
+    return Inertia::render('admin/Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {

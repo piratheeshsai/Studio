@@ -106,6 +106,14 @@
       </div>
     </div>
 
+    <!-- New Shoot Button -->
+    <div class="d-flex justify-content-end mb-3">
+      <button class="btn btn-orange" @click="$emit('open-new-shoot-tab')">
+        <i class="bi bi-plus-circle me-2"></i>
+        New Shoot
+      </button>
+    </div>
+
     <!-- Shoots Display -->
     <div v-if="filteredShoots.length === 0" class="empty-state">
       <div class="empty-icon">
@@ -857,6 +865,21 @@ function downloadShoot(shoot) {
 
 .last-activity i {
   color: #ff6b35;
+}
+
+/* New Shoot Button */
+.btn-orange {
+  background: linear-gradient(90deg, #ff6b35 60%, #f7931e 100%);
+  color: #fff;
+  border: none;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+.btn-orange:hover {
+  background: #ff6b35;
+  color: #fff;
 }
 
 /* Responsive Design */

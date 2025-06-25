@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('gallery_links', function (Blueprint $table) {
+        Schema::create('shoot_packages', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('shoot_id')->constrained()->onDelete('cascade');
-            $table->string('link_token')->unique(); // secure random string for URL
-            $table->timestamp('expires_at')->nullable(); // optional: auto-expire
+            $table->string('name'); // Package name
+            $table->decimal('price', 10, 2); // Package price
+            $table->text('description')->nullable(); // Optional description
+            $table->integer('image_limit')->nullable(); // Optional: how many images included
             $table->timestamps();
         });
     }
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('gallery_links');
+        Schema::dropIfExists('shoot_packages');
     }
 };

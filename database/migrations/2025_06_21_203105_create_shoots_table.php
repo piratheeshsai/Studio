@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('type'); // e.g., Wedding, Birthday
             $table->date('shoot_date');
+            $table->foreignId('shoot_package_id')->nullable()->constrained('shoot_packages')->nullOnDelete();
 
             $table->timestamps();
         });

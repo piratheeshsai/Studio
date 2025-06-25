@@ -43,6 +43,7 @@
         @update:activeShootType="activeShootType = $event"
         @trigger-file-input="triggerFileInput"
         @copy-gallery-link="copyGalleryLink"
+        @open-new-shoot-tab="openNewShootTab"
       />
 
       <!-- Galleries Tab -->
@@ -62,6 +63,13 @@
         @preview="previewWebsite"
         @publish="publishWebsite"
       />
+
+      <!-- New Shoot Tab -->
+      <NewShoot
+        v-if="activeTab === 'new-shoot'"
+        @close="closeNewShootTab"
+        @save="handleNewShootSave"
+      />
     </div>
   </div>
 </template>
@@ -73,14 +81,16 @@ import OverviewTab from './AdminComponent/OverviewTab.vue';
 import ShootsTab from './AdminComponent/ShootTab.vue';
 import GalleryTab from './AdminComponent/GalleryTab.vue';
 import WebsiteTab from './AdminComponent/WebsiteTab.vue';
+import NewShoot from './AdminComponent/NewShoot/NewShoot.vue'; // Import your form
 
-const tabs = [
+const tabs = ref([
   { id: 'overview', name: 'Overview', icon: 'bi bi-camera-fill' },
   { id: 'shoots', name: 'All Shoots', icon: 'bi bi-images' },
   { id: 'galleries', name: 'Client Galleries', icon: 'bi bi-share-fill' },
   { id: 'website', name: 'Website Builder', icon: 'bi bi-gear-fill' }
-];
+]);
 const activeTab = ref('overview');
+const showNewShootTab = ref(false);
 const activeShootType = ref('All');
 
 const shootTypes = [
@@ -169,6 +179,19 @@ const websiteSettings = ref({
   address: '123 Photography Lane, Studio City, CA 90210',
   socialLinks: '@elitephotography'
 });
+
+// --- Add the function here ---
+function openNewShootTab() {
+  if (!tabs.value.find(tab => tab.id === 'new-shoot')) {
+    tabs.value.push({
+      id: 'new-shoot',
+      name: 'New Shoot',
+      icon: 'bi bi-plus-circle'
+    });
+  }
+  activeTab.value = 'new-shoot';
+}
+// --- End function ---
 </script>
 
 <style scoped>

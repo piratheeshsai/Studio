@@ -1,11 +1,24 @@
 <template>
   <div class="shoot-management p-4">
     <!-- Create New Shoot Form -->
-    <NewShootForm />
+     <NewShootForm
+      :editMode="editMode"
+      :editShoot="editShoot"
+      @shoot-created="handleShootCreated"
+      @shoot-updated="handleShootUpdated"
+      @cancel-edit="cancelEdit"
+    />
 
     <!-- Existing Shoots Management -->
 
-<ShootsList />
+     <!-- Existing Shoots Management -->
+    <ShootsList
+      :shoots="shoots"
+      @edit-shoot="handleEditShoot"
+      @shoot-deleted="handleShootDeleted"
+    />
+
+
     <!-- Customer Gallery Modal (Preview) -->
     <div v-if="showCustomerGallery" class="modal fade show d-block" style="background: rgba(0,0,0,0.8);">
       <div class="modal-dialog modal-xl">

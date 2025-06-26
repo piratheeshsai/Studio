@@ -92,6 +92,8 @@
 <script setup>
 import { reactive, ref, onMounted } from 'vue'
 import axios from 'axios'
+import Swal from 'sweetalert2'
+
 
 const form = reactive({
   clientName: '',
@@ -112,21 +114,67 @@ onMounted(async () => {
 
 const loading = ref(false)
 
-function submitForm() {
+
+const errors = ref(null)  // to store validation errors
+
+async function submitForm() {
   loading.value = true
-  // Simulate async operation (e.g., API call)
-  setTimeout(() => {
-    console.log('Form submitted:', { ...form })
-    // Optionally reset form
+  errors.value = null
+  try {
+    const response = await axios.post('/api/shoots', { ...form })
+    console.log('Form submitted:', response.data)
+
+    // Reset form after success
     form.clientName = ''
     form.shootType = ''
     form.date = ''
     form.clientEmail = ''
     form.clientPhone = ''
     form.package = ''
+
+    // ✅ Show SweetAlert2 toast for success
+    Swal.fire({
+      toast: true,
+      position: 'top-end',  // top-end = top right
+      icon: 'success',
+      title: 'Shoot created successfully',
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+    })
+  } catch (error) {
+    if (error.response && error.response.status === 422) {
+      errors.value = error.response.data.errors
+
+
+      Swal.fire({
+        toast: true,
+        position: 'top-end',
+        icon: 'error',
+        title: 'Validation failed. Check inputs.',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+      })
+    } else {
+      console.error('Submit failed:', error)
+
+      Swal.fire({
+        toast: true,
+        position: 'top-end',
+        icon: 'error',
+        title: 'Something went wrong',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+      })
+    }
+  } finally {
     loading.value = false
-  }, 1500)
+  }
 }
+
+
 </script>
 
 <style scoped>

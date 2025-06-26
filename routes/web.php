@@ -24,6 +24,8 @@ Route::get('/dashboard', function () {
     return Inertia::render('admin/Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::get('/shoots/create', [ShootController::class, 'create'])->name('shoots.create');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

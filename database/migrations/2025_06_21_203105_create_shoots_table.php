@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('shoots', function (Blueprint $table) {
             $table->id();
             $table->foreignId('client_id')->constraind()->onDelete('cascade');
-            $table->string('title');
+            $table->string('title')->nullable(); // Optional title for the shoot
             $table->string('type'); // e.g., Wedding, Birthday
             $table->date('shoot_date');
             $table->foreignId('shoot_package_id')->nullable()->constrained('shoot_packages')->nullOnDelete();

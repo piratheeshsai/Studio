@@ -12,8 +12,8 @@
         <div class="card bg-dark border-secondary">
           <div class="card-header bg-gradient-orange text-white d-flex justify-content-between align-items-center">
             <div>
-              <h5 class="mb-0">{{ shoot.clientName }}</h5>
-              <small>{{ shoot.shootType }} - {{ shoot.date }}</small>
+              <h5 class="mb-0">{{ shoot.client.name }}</h5>
+              <small>{{ shoot.type }} - {{ shoot.shoot_date }}</small>
             </div>
             <div class="d-flex gap-2">
               <button class="btn btn-sm btn-outline-light" @click="toggleShootDetails(shoot.id)">
@@ -21,6 +21,9 @@
               </button>
               <button class="btn btn-sm btn-outline-light" @click="shareShoot(shoot)">
                 <i class="fas fa-share"></i>
+              </button>
+              <button class="btn btn-sm btn-outline-light" @click="editShoot(shoot.id)">
+                <i class="fas fa-edit"></i>
               </button>
               <button class="btn btn-sm btn-outline-danger" @click="deleteShoot(shoot.id)">
                 <i class="fas fa-trash-alt"></i>
@@ -31,14 +34,17 @@
             <div class="row mb-4">
               <div class="col-md-8">
                 <p class="text-light mb-2">
-                  <strong>Description:</strong> {{ shoot.description || 'No description' }}
+                  <strong>Package:</strong> {{ shoot.package.name || 'No description' }}
                 </p>
                 <p class="text-light mb-2">
-                  <strong>Client Email:</strong> {{ shoot.clientEmail }}
+                  <strong>Client Email:</strong> {{ shoot.client.email || 'Not provided' }}
+                </p>
+                 <p class="text-light mb-2">
+                  <strong>Client Email:</strong> {{ shoot.client.phone || 'Not provided' }}
                 </p>
                 <p class="text-light mb-0">
                   <strong>Status:</strong>
-                  <span class="badge bg-success ms-2">{{ shoot.status }}</span>
+                  <span class="badge bg-success ms-2">Editing</span>
                 </p>
               </div>
               <div class="col-md-4 text-end">
@@ -153,33 +159,24 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import axios from 'axios'
 
-// Example shoots data for prototype/demo
-const shoots = ref([
-  {
-    id: 1,
-    clientName: 'John Doe',
-    shootType: 'Wedding',
-    date: '2025-06-22',
-    clientEmail: 'john@example.com',
-    description: 'Outdoor wedding shoot at the park.',
-    status: 'Active',
-    shareLink: 'https://yourdomain.com/gallery/abc123'
-  },
-  {
-    id: 2,
-    clientName: 'Jane Smith',
-    shootType: 'Birthday',
-    date: '2025-06-15',
-    clientEmail: 'jane@example.com',
-    description: 'Birthday party shoot.',
-    status: 'Active',
-    shareLink: 'https://yourdomain.com/gallery/def456'
-  }
-])
 
+
+const shoots = ref([])
 const expandedShootId = ref(null)
+
+onMounted(async () => {
+
+    try{
+        const response = await axios.get('/api/shoots')
+        shoots.value = response.data
+    } catch (error) {
+        console.error('Error fetching shoots:', error)
+    }
+})
+
 
 function toggleShootDetails(id) {
   expandedShootId.value = expandedShootId.value === id ? null : id

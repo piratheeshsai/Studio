@@ -1,39 +1,7 @@
 <template>
   <div class="shoots-tab">
     <!-- Statistics Overview -->
-    <div class="stats-overview mb-4">
-      <div class="row g-3">
-        <div class="col-6 col-md-3">
-          <div class="stat-card">
-            <div class="stat-icon">📸</div>
-            <div class="stat-value">{{ totalShoots }}</div>
-            <div class="stat-label">Total Shoots</div>
-          </div>
-        </div>
-        <div class="col-6 col-md-3">
-          <div class="stat-card">
-            <div class="stat-icon">⏳</div>
-            <div class="stat-value">{{ pendingShoots }}</div>
-            <div class="stat-label">Pending Review</div>
-          </div>
-        </div>
-        <div class="col-6 col-md-3">
-          <div class="stat-card">
-            <div class="stat-icon">✅</div>
-            <div class="stat-value">{{ completedShoots }}</div>
-            <div class="stat-label">Completed</div>
-          </div>
-        </div>
-        <div class="col-6 col-md-3">
-          <div class="stat-card">
-            <div class="stat-icon">🖼️</div>
-            <div class="stat-value">{{ totalImages }}</div>
-            <div class="stat-label">Total Images</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
+  
     <!-- Upload Zone -->
     <div class="upload-zone mb-4" @click="$emit('trigger-file-input')">
       <div class="upload-content">

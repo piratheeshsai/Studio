@@ -9,7 +9,7 @@
       @cancel-edit="cancelEdit"
     />
 
-    <!-- Existing Shoots Management -->
+
 
      <!-- Existing Shoots Management -->
     <ShootsList
